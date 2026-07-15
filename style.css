@@ -480,23 +480,16 @@ h1, h2, h3, h4, .card-title, .team-title {
 .penalty-section {
     display: none;
     opacity: 0;
-    transition: all 0.35s ease;
+    visibility: hidden;
 }
 
 .penalty-section.visible {
-    display: flex;
-    animation: fadeInPenalty 0.35s ease forwards;
-}
-
-@keyframes fadeInPenalty {
-    0% {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
 }
 
 .penalty-label {
@@ -782,56 +775,159 @@ h1, h2, h3, h4, .card-title, .team-title {
 /* ==========================================================================
    Comprehensive Responsive & Mobile Breakpoints
    ========================================================================== */
+@media (max-width: 950px) {
+    /* Enforce vertical column layout for Match Score and Penalty Score on mobile & medium screens */
+    .scores-grid,
+    .scores-grid.tie-active {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
 @media (max-width: 768px) {
     body {
-        padding: 1rem 0.75rem;
+        padding: 1rem 0.6rem;
     }
     .prediction-card {
-        padding: 2.2rem 1.6rem;
+        padding: 2rem 1.4rem;
+        border-radius: 22px;
     }
-    .form-grid, .scores-grid {
+    .form-grid {
         grid-template-columns: 1fr;
         gap: 1.25rem;
     }
+    /* Force scores grid to stack vertically in column format on mobile */
+    .scores-grid,
+    .scores-grid.tie-active {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    .penalty-section.visible {
+        display: flex !important;
+        width: 100% !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
     .winner-cards {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.9rem;
     }
     .score-selector {
         width: 100%;
         justify-content: center;
+        gap: 0.8rem;
     }
     .card-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1.2rem;
+        gap: 1rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
+    body {
+        padding: 0.6rem 0.4rem;
+    }
     .prediction-card {
-        padding: 1.8rem 1.2rem;
-        border-radius: 22px;
+        padding: 1.6rem 1rem;
+        border-radius: 18px;
     }
     .card-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
-    .card-content {
-        padding: 1.1rem 1.2rem;
+    .card-subtitle {
+        font-size: 0.85rem;
+    }
+    /* Prevent iOS zoom on inputs by keeping text font-size >= 16px */
+    .input-field {
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+    }
+    .winner-card {
+        padding: 1rem 1.1rem;
+    }
+    .country-name {
+        font-size: 1.15rem;
+    }
+    .country-desc {
+        font-size: 0.75rem;
+    }
+    /* Compact Score Boxes for Narrow Phones */
+    .score-selector {
+        gap: 0.4rem;
     }
     .score-box {
-        padding: 0.4rem 0.5rem 0.4rem 0.8rem;
+        padding: 0.45rem 0.45rem 0.45rem 0.65rem;
+        gap: 0.35rem;
+        border-radius: 12px;
+        min-width: 0;
+    }
+    .score-label {
+        font-size: 0.78rem;
+        letter-spacing: 0.5px;
+    }
+    .score-input-wrapper {
+        gap: 0.2rem;
     }
     .score-num-input {
-        width: 38px;
-        font-size: 1.25rem;
+        width: 32px;
+        font-size: 1.2rem;
+    }
+    .score-dash {
+        font-size: 1.4rem;
+    }
+    .penalty-tag {
+        font-size: 0.68rem;
+        padding: 0.15rem 0.45rem;
+    }
+    /* Fit submit button comfortably on one line or cleanly structured */
+    .btn-submit {
+        padding: 1.1rem 1rem;
+        font-size: 1.02rem;
+        border-radius: 15px;
+        gap: 0.5rem;
+        text-align: center;
     }
     .modal-box {
-        padding: 2rem 1.4rem;
-        border-radius: 22px;
+        padding: 1.8rem 1.2rem;
+        border-radius: 20px;
+    }
+    .modal-title {
+        font-size: 1.5rem;
     }
     .modal-buttons {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 380px) {
+    .prediction-card {
+        padding: 1.3rem 0.75rem;
+    }
+    .score-box {
+        padding: 0.35rem 0.35rem 0.35rem 0.5rem;
+        gap: 0.25rem;
+    }
+    .score-label {
+        font-size: 0.72rem;
+    }
+    .score-num-input {
+        width: 28px;
+        font-size: 1.1rem;
+    }
+    .arrow-btn {
+        width: 20px;
+        height: 15px;
+    }
+    .btn-submit {
+        font-size: 0.95rem;
+        padding: 1rem 0.8rem;
     }
 }
 

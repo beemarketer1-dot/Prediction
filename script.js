@@ -31,10 +31,26 @@ function checkTieAndTogglePenalty() {
 
     if (!isNaN(argVal) && !isNaN(engVal) && argVal === engVal && !(argVal === 0 && engVal === 0)) {
         penaltySection.classList.add('visible');
-        if (scoresGrid) scoresGrid.classList.add('tie-active');
+        penaltySection.style.setProperty('display', 'flex', 'important');
+        penaltySection.style.setProperty('opacity', '1', 'important');
+        penaltySection.style.setProperty('visibility', 'visible', 'important');
+        if (scoresGrid) {
+            scoresGrid.classList.add('tie-active');
+            if (window.innerWidth <= 950) {
+                scoresGrid.style.setProperty('display', 'flex', 'important');
+                scoresGrid.style.setProperty('flex-direction', 'column', 'important');
+            }
+        }
     } else {
         penaltySection.classList.remove('visible');
-        if (scoresGrid) scoresGrid.classList.remove('tie-active');
+        penaltySection.style.setProperty('display', 'none', 'important');
+        penaltySection.style.setProperty('opacity', '0', 'important');
+        penaltySection.style.setProperty('visibility', 'hidden', 'important');
+        if (scoresGrid) {
+            scoresGrid.classList.remove('tie-active');
+            scoresGrid.style.removeProperty('display');
+            scoresGrid.style.removeProperty('flex-direction');
+        }
     }
 }
 
