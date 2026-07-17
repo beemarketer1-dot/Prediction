@@ -3,15 +3,15 @@
  */
 
 function onWinnerSelect(team) {
-    const argCard = document.querySelector('.option-arg');
+    const fraCard = document.querySelector('.option-fra');
     const engCard = document.querySelector('.option-eng');
     
-    if (team === 'argentina') {
-        argCard?.classList.add('selected');
+    if (team === 'france') {
+        fraCard?.classList.add('selected');
         engCard?.classList.remove('selected');
     } else if (team === 'england') {
         engCard?.classList.add('selected');
-        argCard?.classList.remove('selected');
+        fraCard?.classList.remove('selected');
     }
 }
 
@@ -19,17 +19,17 @@ function onWinnerSelect(team) {
  * Check if regular Match Score is a Tie, and dynamically show/hide the Penalty Shootout option
  */
 function checkTieAndTogglePenalty() {
-    const argScoreInput = document.getElementById('argScore');
+    const fraScoreInput = document.getElementById('fraScore');
     const engScoreInput = document.getElementById('engScore');
     const penaltySection = document.getElementById('penalty-score-section');
     const scoresGrid = document.querySelector('.scores-grid');
 
-    if (!argScoreInput || !engScoreInput || !penaltySection) return;
+    if (!fraScoreInput || !engScoreInput || !penaltySection) return;
 
-    const argVal = parseInt(argScoreInput.value, 10);
+    const fraVal = parseInt(fraScoreInput.value, 10);
     const engVal = parseInt(engScoreInput.value, 10);
 
-    if (!isNaN(argVal) && !isNaN(engVal) && argVal === engVal && !(argVal === 0 && engVal === 0)) {
+    if (!isNaN(fraVal) && !isNaN(engVal) && fraVal === engVal && !(fraVal === 0 && engVal === 0)) {
         penaltySection.classList.add('visible');
         penaltySection.style.setProperty('display', 'flex', 'important');
         penaltySection.style.setProperty('opacity', '1', 'important');
@@ -86,9 +86,9 @@ function handleFormSubmit(event) {
     const fullName = document.getElementById('fullName')?.value.trim();
     const phoneNumber = document.getElementById('phoneNumber')?.value.trim();
     const winnerChoice = document.querySelector('input[name="winnerChoice"]:checked')?.value;
-    const argScore = document.getElementById('argScore')?.value || '0';
+    const fraScore = document.getElementById('fraScore')?.value || '0';
     const engScore = document.getElementById('engScore')?.value || '0';
-    const argPenScore = document.getElementById('argPenScore')?.value || '0';
+    const fraPenScore = document.getElementById('fraPenScore')?.value || '0';
     const engPenScore = document.getElementById('engPenScore')?.value || '0';
 
     if (!fullName || !phoneNumber || !winnerChoice) {
@@ -97,16 +97,16 @@ function handleFormSubmit(event) {
     }
 
     // Prepare match score strings
-    const matchScoreStr = `${argScore} - ${engScore}`;
+    const matchScoreStr = `${fraScore} - ${engScore}`;
     let penScoreStr = 'N/A';
-    const argP = parseInt(argPenScore, 10) || 0;
+    const fraP = parseInt(fraPenScore, 10) || 0;
     const engP = parseInt(engPenScore, 10) || 0;
-    const argS = parseInt(argScore, 10) || 0;
+    const fraS = parseInt(fraScore, 10) || 0;
     const engS = parseInt(engScore, 10) || 0;
 
-    if (argS === engS && !(argS === 0 && engS === 0)) {
-        const penWinner = argP > engP ? ' (ARG)' : engP > argP ? ' (ENG)' : '';
-        penScoreStr = `${argP} - ${engP}${penWinner}`;
+    if (fraS === engS && !(fraS === 0 && engS === 0)) {
+        const penWinner = fraP > engP ? ' (FRA)' : engP > fraP ? ' (ENG)' : '';
+        penScoreStr = `${fraP} - ${engP}${penWinner}`;
     }
 
     // Populate confirmation modal elements early
@@ -127,7 +127,7 @@ function handleFormSubmit(event) {
     if (tScore) tScore.textContent = matchScoreStr;
 
     if (tPenScore && penRow) {
-        if (argS === engS && !(argS === 0 && engS === 0)) {
+        if (fraS === engS && !(fraS === 0 && engS === 0)) {
             penRow.style.display = 'flex';
             tPenScore.textContent = penScoreStr;
         } else {
@@ -136,9 +136,9 @@ function handleFormSubmit(event) {
     }
 
     if (tWinner) {
-        if (winnerChoice === 'argentina') {
-            tWinner.textContent = 'Argentina 🇦🇷';
-            tWinner.style.color = '#00d2ff';
+        if (winnerChoice === 'france') {
+            tWinner.textContent = 'France 🇫🇷';
+            tWinner.style.color = '#2b7bff';
         } else {
             tWinner.textContent = 'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿';
             tWinner.style.color = '#ff1e56';
